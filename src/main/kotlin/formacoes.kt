@@ -1,5 +1,6 @@
 import java.util.Scanner
 
+//classes na template do desafio com algumas simples modificações
 enum class Nivel { BASICO, INTERMEDIARIO, AVANÇADO }
 
 class Usuario(val nome: String)
@@ -16,8 +17,10 @@ data class Formacao(val nome: String, var conteudos: List<ConteudoEducacional>, 
 }
 
 fun main() {
+    //lista mutável das formações para serem iteradas e listadas para o usuário
     val formacoes = mutableListOf<Formacao>()
 
+    //criando as formações e conteúdos e armazenando-os na lista mutável
     val conteudosKt: List<ConteudoEducacional> = listOf<ConteudoEducacional>(ConteudoEducacional("O poder das funções em kotlin", 120),
     ConteudoEducacional("Paradigma de orientação a objetos em kotlin", 60))
     val expKotlin: Formacao = Formacao("Experiência Kotlin", conteudosKt,  Nivel.BASICO )
@@ -35,16 +38,21 @@ fun main() {
     val bootPy: Formacao = Formacao("Bootcamp de Python", conteudosPy, Nivel.INTERMEDIARIO)
     formacoes.add(bootPy)
 
+    //início do diálogo com o usuário e listagem das formações disponíveis
     println("Bem-vindo ao ecossistema DIO, conheça as nossas formações do momento abaixo: ")
     for (formacao in formacoes) println("${formacoes.indexOf(formacao) + 1} - ${formacao.nome}")
 
+    //recebendo o nome do usuário e armazenando na classe
     println("Qual o teu nome? ")
     val input = Scanner(System.`in`)
     val userName = input.next().toString()
     val user = Usuario(userName)
+
+    //recebendo qual formação o usuário deseja se matricular
     println("Qual formação deseja fazer?(digite de 1 - 4 segundo a formação desejada ")
-    val course = input.nextInt()
-    when(course){
+
+    //realizando a matricula na formação, de acordo com a escolha do usuário
+    when(input.nextInt()){
         1 -> expKotlin.matricular(user)
         2 -> introJava.matricular(user)
         3 -> linguagemC.matricular(user)
